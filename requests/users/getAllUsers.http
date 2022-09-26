@@ -1,1 +1,1 @@
-GET http://localhost:3000/api/users HTTP/1.1
+GET http://localhost:3000/api/users?limit=5&offset=10 HTTP/1.1
