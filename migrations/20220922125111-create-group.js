@@ -1,7 +1,7 @@
 'use strict';
 module.exports = {
-  async up(queryInterface, Sequelize) {
-    await queryInterface.createTable("groups", {
+  async up (queryInterface, Sequelize) {
+    await queryInterface.createTable('groups', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -13,25 +13,25 @@ module.exports = {
         type: Sequelize.STRING,
       },
       imagePath: {
-        field: "image_path",
+        field: 'image_path',
         type: Sequelize.TEXT,
       },
       description: {
         type: Sequelize.STRING,
       },
       createdAt: {
-        field: "created_at",
+        field: 'created_at',
         allowNull: false,
         type: Sequelize.DATE,
       },
       updatedAt: {
-        field: "updated_at",
+        field: 'updated_at',
         allowNull: false,
         type: Sequelize.DATE,
       },
     });
   },
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.dropTable('groups');
-  }
+  },
 };

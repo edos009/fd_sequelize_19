@@ -1,6 +1,6 @@
-const { Task } = require("../models");
-const { Op } = require("sequelize");
-const createError = require("http-errors");
+const { Task } = require('../models');
+const { Op } = require('sequelize');
+const createError = require('http-errors');
 
 module.exports.createTask = async (req, res, next) => {
   try {
@@ -51,29 +51,13 @@ module.exports.getAllTasks = async (req, res, next) => {
       ...pagination,
     });
     if (!allTasks) {
-      createError(404, "Tasks not found!")
+      createError(404, 'Tasks not found!');
     }
     res.status(200).send({ data: allTasks });
   } catch (error) {
     next(error);
   }
 };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 // // 2 Вариант
 // module.exports.deleteTaskByUser = async (req, res, next) => {

@@ -1,13 +1,13 @@
-const { Group, User } = require("../models");
-const _ = require("lodash");
-const createError = require("http-errors");
+const { Group, User } = require('../models');
+const _ = require('lodash');
+const createError = require('http-errors');
 
 module.exports.createGroup = async (req, res, next) => {
   const { body, instanceUser } = req;
-  const values = _.pick(body, ["name", "imagePath", "description"]);
+  const values = _.pick(body, ['name', 'imagePath', 'description']);
   const group = await Group.create(values);
   if (!group) {
-    createError(400, "Group not created!");
+    createError(400, 'Group not created!');
   }
 
   await instanceUser.addGroup(group);
@@ -24,14 +24,14 @@ module.exports.getAllGroups = async (req, res, next) => {
     const groups = await Group.findAll();
 
     if (!groups) {
-      createError(404, 'Groups not found!')
+      createError(404, 'Groups not found!');
     }
 
-    res.status(200).send({data: groups})
+    res.status(200).send({ data: groups });
   } catch (error) {
-    next(error)
+    next(error);
   }
-}
+};
 
 module.exports.getAllUserFromGroup = async (req, res, next) => {
   try {
@@ -43,13 +43,13 @@ module.exports.getAllUserFromGroup = async (req, res, next) => {
       include: [
         {
           model: User,
-          attributes: ["id", "email", "firstName"],
+          attributes: ['id', 'email', 'firstName'],
           through: { attributes: [] },
         },
       ],
     });
     if (!group) {
-      createError(404, "Group not found");
+      createError(404, 'Group not found');
     }
 
     res.status(200).send({ data: group });

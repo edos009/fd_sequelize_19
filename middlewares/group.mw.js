@@ -1,5 +1,5 @@
-const createError = require("http-errors");
-const { Group } = require("../models");
+const createError = require('http-errors');
+const { Group } = require('../models');
 
 module.exports.checkGroup = async (req, res, next) => {
   try {
@@ -10,7 +10,7 @@ module.exports.checkGroup = async (req, res, next) => {
     const group = await Group.findByPk(groupId);
 
     if (!group) {
-      createError(404, "Group not found!");
+      createError(404, 'Group not found!');
     }
 
     req.instanceGroup = group;

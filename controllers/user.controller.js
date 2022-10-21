@@ -1,15 +1,22 @@
-const { Op } = require("sequelize");
-const { User, Group } = require("../models");
-const createError = require("http-errors");
-const _ = require("lodash");
-const { values } = require("lodash");
+const { Op } = require('sequelize');
+const { User, Group } = require('../models');
+const createError = require('http-errors');
+const _ = require('lodash');
+const { values } = require('lodash');
 
 module.exports.createUser = async (req, res, next) => {
   try {
     const { body } = req;
-    const values = _.pick(body, ["firstName", "lastName", "email", "password", "birthday", "isMale"]);
+    const values = _.pick(body, [
+      'firstName',
+      'lastName',
+      'email',
+      'password',
+      'birthday',
+      'isMale',
+    ]);
     const createdUser = await User.create(values);
-    const user = createdUser.get()
+    const user = createdUser.get();
     user.password = undefined;
     res.status(201).send({ data: [user] });
   } catch (error) {
@@ -21,7 +28,7 @@ module.exports.getAllUsers = async (req, res, next) => {
   try {
     const { pagination = {} } = req;
     const allUsers = await User.findAll({
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ['password'] },
       ...pagination,
     });
     res.status(200).send({ data: allUsers });
@@ -65,10 +72,10 @@ module.exports.findUserByPk = async (req, res, next) => {
       params: { userId },
     } = req;
     const foundUserByPk = await User.findByPk(userId, {
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ['password'] },
     });
     if (!foundUserByPk) {
-      createError(404, "User not found!");
+      createError(404, 'User not found!');
     }
     res.status(200).send({ data: foundUserByPk });
   } catch (error) {
@@ -97,11 +104,11 @@ module.exports.getAllGroupsFromUser = async (req, res, next) => {
       include: [
         {
           model: Group,
-          attributes: ["id", "name"],
+          attributes: ['id', 'name'],
           through: { attributes: [] },
         },
       ],
-      attributes: { exclude: ["password"] },
+      attributes: { exclude: ['password'] },
     });
 
     res.status(200).send({ data: user });

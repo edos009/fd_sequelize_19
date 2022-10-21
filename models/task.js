@@ -1,10 +1,10 @@
-"use strict";
-const { isAfter } = require("date-fns");
-const { Model } = require("sequelize");
+'use strict';
+const { isAfter } = require('date-fns');
+const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Task extends Model {
-    static associate(models) {
-      Task.belongsTo(models.User, { foreignKey: "userId" });
+    static associate (models) {
+      Task.belongsTo(models.User, { foreignKey: 'userId' });
     }
   }
   Task.init(
@@ -19,7 +19,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       isDone: {
         type: DataTypes.BOOLEAN,
-        field: "is_done",
+        field: 'is_done',
         allowNull: false,
         defaultValue: false,
         validate: {
@@ -28,13 +28,13 @@ module.exports = (sequelize, DataTypes) => {
       },
       deadLine: {
         type: DataTypes.DATE,
-        field: "dead_line",
+        field: 'dead_line',
         allowNull: false,
         validate: {
           isDate: true,
-          isValidDate(value) {
+          isValidDate (value) {
             if (isAfter(new Date(), new Date(value))) {
-              throw new Error("Fail! Check your deadline!");
+              throw new Error('Fail! Check your deadline!');
             }
           },
         },
@@ -42,8 +42,8 @@ module.exports = (sequelize, DataTypes) => {
     },
     {
       sequelize,
-      modelName: "Task",
-      tableName: "tasks",
+      modelName: 'Task',
+      tableName: 'tasks',
       underscored: true,
     }
   );
