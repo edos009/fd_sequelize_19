@@ -16,6 +16,9 @@ module.exports.createUser = async (req, res, next) => {
       'isMale',
     ]);
     const createdUser = await User.create(values);
+    if (!createdUser) {
+      next(createError(400, 'Try again!'))
+    }
     const user = createdUser.get();
     user.password = undefined;
     res.status(201).send({ data: [user] });
